@@ -1,67 +1,93 @@
-# قفل شبکه اجتماعی (Social Time Lock)
+# Social Time Lock
 
-یک اپلیکیشن ساده اندروید که اپ‌های انتخاب‌شده (مثل اینستاگرام، تلگرام و ...) را
-فقط در یک بازه زمانی مشخص در طول شبانه‌روز باز می‌گذارد و در بقیه ساعت‌ها قفل می‌کند.
+A simple Android app that keeps selected apps (Instagram, Telegram, etc.)
+locked except during time windows you define, and blocks them the rest of
+the day.
 
-## چطور کار می‌کند
-1. در صفحه اصلی، روی «+ ایجاد قانون جدید» می‌زنی.
-2. یک یا چند اپ را از لیست تیک می‌زنی:
-   - اگر فقط **یکی** رو تیک بزنی، یعنی یک محدودیت اختصاصی برای همون اپ می‌سازی.
-   - اگر **چندتا با هم** تیک بزنی، همه اون‌ها یک «قانون گروهی» مشترک می‌شوند و از یک لیست بازه زمانی پیروی می‌کنند.
-3. بازه‌(های) ساعتی مجاز آن قانون را اضافه می‌کنی (مثلاً صبح، ظهر، شب — هرچقدر بخواهی).
-4. روی «ذخیره قانون» می‌زنی. حالا در صفحه اصلی، زیر «قانون‌های من» این قانون را می‌بینی.
-5. می‌توانی چند قانون جدا بسازی — مثلاً یک قانون گروهی برای اینستاگرام+تلگرام با بازه شب،
-   و یک قانون تکی جداگانه برای یوتیوب با بازه‌های صبح و ظهر.
-6. هر اپ فقط می‌تواند عضو **یک** قانون باشد؛ اگر اپی را که قبلاً در قانون دیگری بوده دوباره در قانون
-   جدیدی انتخاب کنی، به‌طور خودکار از قانون قبلی خارج و به قانون جدید منتقل می‌شود.
-7. دکمه «فعال‌سازی سرویس دسترسی» را می‌زنی و در تنظیمات اندروید، سرویس این اپ را روشن می‌کنی
-   (این مجوز لازم است تا اپ بفهمد کدام برنامه در حال باز شدن است).
-8. از این به بعد، اگر بیرون از بازه‌های مجاز یک قانون بخواهی یکی از اپ‌های آن قانون را باز کنی،
-   بلافاصله صفحه «این اپ الان قفله 🔒» نشان داده می‌شود و به صفحه اصلی گوشی برمی‌گردی.
-   اپ‌هایی که در هیچ قانونی نیستند، اصلاً دست‌نخورده و بدون محدودیت باقی می‌مانند.
+## How it works
+1. On the home screen, tap **"+ Create New Rule"**.
+2. Check one or more apps from the list:
+   - Checking **just one** creates an individual restriction for that app alone.
+   - Checking **several at once** groups them into a shared "group rule" that
+     follows the same list of time windows.
+3. Add the allowed time window(s) for that rule (morning, noon, night —
+   as many as you like).
+4. Tap **"Save Rule"**. You'll now see it listed under "My Rules" on the
+   home screen.
+5. You can create as many separate rules as you want — for example, a group
+   rule for Instagram + Telegram with an evening window, and a separate
+   individual rule for YouTube with morning and noon windows.
+6. Each app can only belong to **one** rule at a time; if you select an app
+   that was already in another rule, it's automatically moved out of the old
+   rule and into the new one.
+7. Tap **"Enable Accessibility Service"** and turn the service on in Android
+   settings (this permission is required so the app can detect which app is
+   being opened).
+8. From then on, if you try to open one of a rule's apps outside its allowed
+   windows, you'll immediately see the "This app is locked 🔒" screen and get
+   sent back to the home screen. Apps that aren't part of any rule are left
+   completely untouched.
 
-## چطور اپ را بسازی و روی گوشی نصب کنی (قدم به قدم برای مبتدی‌ها)
+## Extra features
+- **Temporary access ("wait it out"):** on the locked screen there's a
+  "⏳ Wait and Get 5 Minutes" button. Tapping it starts a deliberate 30-second
+  countdown — designed to interrupt the impulsive urge to open the app —
+  after which you get 5 minutes of temporary access to that specific app.
+- **Usage stats:** tap "📊 Usage Stats" on the home screen to see how much
+  each app has been used today or this week, with a comparison bar between
+  apps. This needs a separate "Usage Access" permission (different from
+  Accessibility), with its own button to jump to the right settings screen.
+  Apps that are part of an active rule show a 🔒 badge.
+- **Backup:** the "Rules Backup" card on the home screen lets you export all
+  your rules to a JSON file, or restore them later — either merging with your
+  current rules or replacing them entirely.
 
-### گام ۱: نصب Android Studio
-1. از سایت رسمی Android Studio (developer.android.com/studio) دانلود و نصبش کن.
-2. اولین بار که بازش می‌کنی، بگذار SDK پیش‌فرض را دانلود کند (چند دقیقه طول می‌کشد).
+## How to build and install it on your phone (step by step for beginners)
 
-### گام ۲: باز کردن پروژه
-1. پوشه فشرده `SocialTimeLock` را از حالت zip خارج کن (Extract).
-2. در Android Studio: File → Open → پوشه `SocialTimeLock` را انتخاب کن.
-3. صبر کن تا «Gradle Sync» تمام شود (پایین صفحه نوار پیشرفت را نشان می‌دهد).
-   - اگر پیغام مربوط به «Gradle Wrapper» دید و پیشنهاد ساختش را داد، قبول کن (Android Studio خودش می‌سازدش).
+### Step 1: Install Android Studio
+1. Download and install it from the official site (developer.android.com/studio).
+2. The first time you open it, let it download the default SDK (takes a few minutes).
 
-### گام ۳: اتصال گوشی یا اجرا روی شبیه‌ساز
-- **گوشی واقعی (پیشنهادی، چون Accessibility روی شبیه‌ساز گاهی محدودیت دارد):**
-  1. در گوشی: تنظیمات → درباره گوشی → روی «شماره ساخت» (Build Number) هفت بار پشت‌سرهم بزن تا «حالت توسعه‌دهنده» فعال شود.
-  2. تنظیمات → گزینه‌های توسعه‌دهنده → «اشکال‌زدایی USB» (USB Debugging) را روشن کن.
-  3. گوشی را با کابل USB به کامپیوتر وصل کن و اجازه اتصال را تأیید کن.
-- در بالای Android Studio، دستگاهت را از لیست انتخاب کن و روی دکمه سبز رنگ ▶ (Run) بزن.
+### Step 2: Open the project
+1. Extract the `SocialTimeLock` zip folder.
+2. In Android Studio: File → Open → select the `SocialTimeLock` folder.
+3. Wait for "Gradle Sync" to finish (a progress bar shows at the bottom).
+   - If it shows a message about the "Gradle Wrapper" and offers to create
+     it, accept — Android Studio will set it up automatically.
 
-### گام ۴: تنظیم اپ روی گوشی
-1. بعد از نصب و باز شدن اپ، اپ‌های موردنظر را تیک بزن و بازه ساعتی را تنظیم کن.
-2. روی «ذخیره تنظیمات» بزن.
-3. روی «فعال‌سازی سرویس دسترسی» بزن؛ در صفحه‌ای که باز می‌شود دنبال نام اپ («قفل شبکه اجتماعی») بگرد و آن را روشن کن.
-   اندروید یک هشدار امنیتی نشان می‌دهد که طبیعی است — چون این نوع دسترسی قدرتمند است، تأییدش کن.
+### Step 3: Connect your phone or run on an emulator
+- **Real phone (recommended, since Accessibility can be limited on emulators):**
+  1. On your phone: Settings → About phone → tap "Build Number" seven times
+     in a row to enable Developer Mode.
+  2. Settings → Developer options → turn on "USB debugging".
+  3. Connect your phone to your computer with a USB cable and confirm the
+     connection prompt.
+- At the top of Android Studio, select your device from the list and click
+  the green ▶ (Run) button.
 
-از این به بعد اپ در پس‌زمینه کار می‌کند و طبق برنامه، اپ‌های انتخابی را در ساعات غیرمجاز قفل می‌کند.
+### Step 4: Set up the app on your phone
+1. Once installed and opened, check the apps you want and set your time window.
+2. Tap "Save Rule".
+3. Tap "Enable Accessibility Service"; on the screen that opens, find this
+   app's name ("Social Time Lock") and turn it on. Android will show a
+   security warning — that's expected since this permission is powerful;
+   confirm it.
 
-## آمار استفاده (ویژگی جدید)
-از صفحه اصلی دکمه «📊 آمار استفاده» رو بزن. اولین بار یه مجوز جدا به‌اسم «دسترسی به آمار استفاده»
-ازت می‌خواد (این با مجوز Accessibility فرق داره و باید جدا فعالش کنی — یه دکمه برای رفتن به
-تنظیمات مربوطه هست). بعدش می‌تونی ببینی هر اپ امروز یا این هفته چقدر استفاده شده، با یه
-نوار مقایسه‌ای بین اپ‌ها. اپ‌هایی که توی یه قانون فعال هستن، کنارشون علامت 🔒 داره.
+From then on, the app runs in the background and locks the selected apps
+outside their allowed hours.
 
-## نکات فنی مهم
-- این اپ از **AccessibilityService** استفاده می‌کند که در پلی‌استور محدودیت‌های سختگیرانه‌ای دارد؛
-  برای استفاده شخصی و نصب مستقیم (APK) مشکلی نیست، ولی اگر بخواهی در گوگل‌پلی منتشرش کنی
-  باید توضیح دقیق دلیل استفاده از این مجوز را در فرم پلی‌کنسول بنویسی.
-- تنظیمات (اپ‌های انتخابی و بازه ساعتی) به‌صورت محلی روی گوشی ذخیره می‌شود (SharedPreferences).
-- برای دور نزدن ساده‌ی قفل (مثل حذف یا خاموش‌کردن اپ)، می‌توان بعداً یک رمز عبور برای
-  غیرفعال‌کردن قفل اضافه کرد — اگر خواستی این قابلیت را هم اضافه می‌کنم.
+## Important technical notes
+- This app uses **AccessibilityService**, which Google Play restricts
+  heavily. It's fine for personal use and direct APK installs, but if you
+  ever want to publish it on Google Play, you'll need to clearly justify
+  this permission's use in the Play Console form.
+- Settings (selected apps and time windows) are stored locally on the phone
+  (SharedPreferences).
+- To prevent someone from simply disabling or uninstalling the app to bypass
+  the lock, a PIN/password to disable it could be added later — let me know
+  if you want this feature too.
 
-## ساختار پروژه
+## Project structure
 ```
 SocialTimeLock/
 ├── app/
@@ -69,18 +95,18 @@ SocialTimeLock/
 │   └── src/main/
 │       ├── AndroidManifest.xml
 │       ├── java/com/example/socialtimelock/
-│       │   ├── MainActivity.kt              ← صفحه اصلی (لیست قانون‌ها)
-│       │   ├── GroupEditActivity.kt          ← ساخت/ویرایش یک قانون (تکی یا گروهی)
-│       │   ├── BlockedScreenActivity.kt      ← صفحه قفل
-│       │   ├── AppBlockerAccessibilityService.kt ← موتور اصلی قفل‌کردن
-│       │   ├── UsageStatsActivity.kt         ← صفحه آمار استفاده
-│       │   ├── UsageStatsHelper.kt           ← خواندن آمار از اندروید
-│       │   ├── PrefsHelper.kt                ← ذخیره/خواندن قانون‌ها
-│       │   ├── LockGroup.kt                  ← مدل یک قانون (اپ‌ها + بازه‌ها)
-│       │   ├── TimeRange.kt                  ← مدل یک بازه زمانی
+│       │   ├── MainActivity.kt              ← Home screen (rules list)
+│       │   ├── GroupEditActivity.kt          ← Create/edit a rule (individual or group)
+│       │   ├── BlockedScreenActivity.kt      ← Lock screen
+│       │   ├── AppBlockerAccessibilityService.kt ← Core locking engine
+│       │   ├── UsageStatsActivity.kt         ← Usage stats screen
+│       │   ├── UsageStatsHelper.kt           ← Reads usage stats from Android
+│       │   ├── PrefsHelper.kt                ← Saves/loads rules & backups
+│       │   ├── LockGroup.kt                  ← Model for a rule (apps + ranges)
+│       │   ├── TimeRange.kt                  ← Model for a time window
 │       │   ├── AppInfo.kt
 │       │   └── AppListAdapter.kt
-│       └── res/                              ← رنگ‌ها، متن‌ها، لایه‌ها
+│       └── res/                              ← Colors, strings, layouts
 ├── build.gradle
 └── settings.gradle
 ```

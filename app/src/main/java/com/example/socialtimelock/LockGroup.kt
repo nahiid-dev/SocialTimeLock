@@ -5,8 +5,9 @@ import org.json.JSONObject
 import java.util.UUID
 
 /**
- * یک "قانون": مجموعه‌ای از اپ‌ها که همگی از یک لیست بازه زمانی مجاز پیروی می‌کنند.
- * یک قانون می‌تونه فقط شامل یک اپ باشه (محدودیت اختصاصی) یا چند اپ (محدودیت گروهی).
+ * A "rule": a set of apps that all follow the same list of allowed time windows.
+ * A rule can contain just one app (an individual restriction) or several apps
+ * together (a group restriction).
  */
 data class LockGroup(
     val id: String = UUID.randomUUID().toString(),
@@ -16,13 +17,13 @@ data class LockGroup(
 ) {
 
     fun isAllowedNow(nowMinute: Int): Boolean {
-        if (ranges.isEmpty()) return false // بدون بازه یعنی همیشه قفل
+        if (ranges.isEmpty()) return false // no ranges means always locked
         return ranges.any { it.contains(nowMinute) }
     }
 
     fun rangesDisplayString(): String {
-        if (ranges.isEmpty()) return "همیشه قفل"
-        return ranges.sortedBy { it.startMinute }.joinToString(" ، ") { it.toDisplayString() }
+        if (ranges.isEmpty()) return "Always locked"
+        return ranges.sortedBy { it.startMinute }.joinToString(", ") { it.toDisplayString() }
     }
 
     fun toJson(): JSONObject {

@@ -7,6 +7,6 @@ data class AppInfo(
     val label: String,
     val icon: Drawable,
     var isSelected: Boolean = false,
-    // اگه این اپ قبلاً توی یه گروه دیگه باشه، اسم اون گروه اینجا میاد (فقط برای نمایش هشدار)
+    // If this app already belongs to another group, that group's name goes here (for warning display only)
     var alreadyInGroupName: String? = null
 )

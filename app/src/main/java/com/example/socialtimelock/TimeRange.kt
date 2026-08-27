@@ -1,7 +1,7 @@
 package com.example.socialtimelock
 
 /**
- * یک بازه زمانی مجاز، بر حسب دقیقه از نیمه‌شب (0..1439).
+ * An allowed time window, in minutes since midnight (0..1439).
  */
 data class TimeRange(val startMinute: Int, val endMinute: Int) {
 
@@ -9,7 +9,7 @@ data class TimeRange(val startMinute: Int, val endMinute: Int) {
         return if (startMinute <= endMinute) {
             nowMinute in startMinute..endMinute
         } else {
-            // بازه از نیمه‌شب رد می‌شه، مثلاً 23:00 تا 02:00
+            // Range crosses midnight, e.g. 23:00 to 02:00
             nowMinute >= startMinute || nowMinute <= endMinute
         }
     }
@@ -17,7 +17,7 @@ data class TimeRange(val startMinute: Int, val endMinute: Int) {
     fun toStorageString(): String = "$startMinute-$endMinute"
 
     fun toDisplayString(): String =
-        "${formatMinute(startMinute)} تا ${formatMinute(endMinute)}"
+        "${formatMinute(startMinute)} to ${formatMinute(endMinute)}"
 
     companion object {
         fun fromStorageString(value: String): TimeRange? {

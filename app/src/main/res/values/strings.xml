@@ -1,41 +1,75 @@
 <resources>
-    <string name="app_name">قفل شبکه اجتماعی</string>
-    <string name="accessibility_service_description">این سرویس اپ‌های انتخاب‌شده را در ساعت‌های غیرمجاز مسدود می‌کند.</string>
+    <string name="app_name">Social Time Lock</string>
+    <string name="accessibility_service_description">This service blocks selected apps outside their allowed hours.</string>
 
-    <string name="title_my_rules">قانون‌های من</string>
-    <string name="my_rules_hint">هر قانون یک یا چند اپ داره که با هم از یک بازه زمانی پیروی می‌کنن.</string>
-    <string name="no_rules_yet">هنوز قانونی نساختی. با دکمه پایین شروع کن.</string>
-    <string name="btn_new_rule">+ ایجاد قانون جدید</string>
+    <string name="title_my_rules">My Rules</string>
+    <string name="my_rules_hint">Each rule has one or more apps that share the same allowed time windows.</string>
+    <string name="no_rules_yet">You haven\'t created any rules yet. Use the button below to start.</string>
+    <string name="btn_new_rule">+ Create New Rule</string>
 
-    <string name="title_new_or_edit_rule">قانون جدید</string>
-    <string name="group_name_hint">اسم این قانون (اختیاری، مثلاً «شبکه اجتماعی»)</string>
-    <string name="hint_rule_name">اسم این قانون (اختیاری، مثلاً «شبکه اجتماعی»)</string>
+    <string name="title_new_or_edit_rule">New Rule</string>
+    <string name="group_name_hint">Rule name (optional, e.g. "Social Media")</string>
+    <string name="hint_rule_name">Rule name (optional, e.g. "Social Media")</string>
 
-    <string name="title_choose_apps">اپ‌هایی که می‌خواهی قفل کنی</string>
-    <string name="choose_apps_hint">می‌تونی چندتا با هم تیک بزنی (محدودیت گروهی) یا فقط یکی (محدودیت تکی).</string>
+    <string name="title_choose_apps">Apps you want to lock</string>
+    <string name="choose_apps_hint">Check several together (group rule) or just one (individual rule).</string>
 
-    <string name="title_time_range">بازه‌های زمانی مجاز برای استفاده</string>
-    <string name="time_range_hint">می‌تونی چند بازه اضافه کنی، مثلاً صبح، ظهر و شب.</string>
-    <string name="btn_add_range">+ افزودن بازه جدید</string>
+    <string name="title_time_range">Allowed time windows</string>
+    <string name="time_range_hint">Add as many windows as you like, e.g. morning, noon, and night.</string>
+    <string name="btn_add_range">+ Add New Time Window</string>
 
-    <string name="btn_save">ذخیره تنظیمات</string>
-    <string name="btn_save_rule">ذخیره قانون</string>
-    <string name="btn_delete_rule">حذف این قانون</string>
-    <string name="btn_delete_group">حذف این قانون</string>
+    <string name="btn_save">Save Settings</string>
+    <string name="btn_save_rule">Save Rule</string>
+    <string name="btn_delete_rule">Delete This Rule</string>
+    <string name="btn_delete_group">Delete This Rule</string>
 
-    <string name="btn_enable_service">فعال‌سازی سرویس دسترسی (Accessibility)</string>
-    <string name="btn_usage_stats">📊 آمار استفاده</string>
+    <string name="btn_enable_service">Enable Accessibility Service</string>
+    <string name="btn_usage_stats">📊 Usage Stats</string>
 
-    <string name="title_usage_stats">آمار استفاده</string>
-    <string name="usage_permission_explanation">برای دیدن آمار، باید مجوز «دسترسی به آمار استفاده» رو در تنظیمات اندروید بدی. این مجوز جدا از سرویس دسترسیه که قبلاً فعال کردی.</string>
-    <string name="btn_grant_usage_access">فعال‌سازی دسترسی به آمار استفاده</string>
-    <string name="toggle_today">امروز</string>
-    <string name="toggle_week">این هفته</string>
-    <string name="no_usage_data">هنوز داده‌ای برای نمایش نیست.</string>
+    <string name="title_usage_stats">Usage Stats</string>
+    <string name="usage_permission_explanation">To see usage stats, you need to grant "Usage Access" in Android settings. This permission is separate from the Accessibility service you already enabled.</string>
+    <string name="btn_grant_usage_access">Enable Usage Access</string>
+    <string name="toggle_today">Today</string>
+    <string name="toggle_week">This Week</string>
+    <string name="no_usage_data">No data to show yet.</string>
 
-    <string name="status_service_on">سرویس فعال است ✅</string>
-    <string name="status_service_off">سرویس غیرفعال است ⚠️ برای کارکرد اپ باید فعالش کنی</string>
-    <string name="blocked_title">این اپ الان قفله 🔒</string>
-    <string name="blocked_subtitle">فقط در بازه زمانی مجازت می‌تونی ازش استفاده کنی.</string>
-    <string name="btn_back_home">برگشت به صفحه اصلی</string>
+    <string name="status_service_on">Service is active ✅</string>
+    <string name="status_service_off">Service is off ⚠️ You need to enable it for the app to work</string>
+    <string name="blocked_title">This app is locked 🔒</string>
+    <string name="blocked_subtitle">You can only use it during your allowed time window.</string>
+    <string name="btn_back_home">Back to Home Screen</string>
+    <string name="btn_request_delay">⏳ Wait and Get 5 Minutes</string>
+
+    <string name="title_backup">Rules Backup</string>
+    <string name="backup_hint">Save your rules to a file, or restore them from a previous backup.</string>
+    <string name="btn_export_rules">📤 Export</string>
+    <string name="btn_import_rules">📥 Restore from File</string>
+    <string name="export_success">Backup file saved ✅</string>
+    <string name="export_failed">Failed to save backup file ❌</string>
+    <string name="import_success_format">%d rule(s) restored successfully ✅</string>
+    <string name="import_failed">The selected file is not valid ❌</string>
+    <string name="import_confirm_title">Restore rules?</string>
+    <string name="import_confirm_message">Do you want to merge this file\'s rules with your current rules, or replace them entirely?</string>
+    <string name="btn_import_merge">Merge</string>
+    <string name="btn_import_replace">Replace</string>
+
+    <string name="btn_edit">Edit</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_remove_range">Remove ✕</string>
+    <string name="already_in_group_format">Currently in "%s" — selecting it will move it here</string>
+    <string name="btn_waiting_format">Wait… %d</string>
+    <string name="temp_access_granted_format">%d minutes of temporary access granted ⏳</string>
+
+    <string name="title_pick_range_start">Start time</string>
+    <string name="title_pick_range_end">End time</string>
+    <string name="no_ranges_yet">You haven\'t added any time window yet — this rule is always locked.</string>
+    <string name="error_pick_at_least_one_app">You need to select at least one app</string>
+    <string name="default_name_individual">Individual Limit</string>
+    <string name="default_name_group">Unnamed Group</string>
+    <string name="saved_toast">Saved ✅</string>
+    <string name="delete_group_title">Delete this rule?</string>
+    <string name="delete_group_message">Apps in this rule will no longer have any restriction.</string>
+    <string name="btn_confirm_delete">Delete</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="no_apps_label">No apps</string>
 </resources>

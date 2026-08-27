@@ -15,8 +15,9 @@ import com.example.socialtimelock.databinding.ItemTimeRangeBinding
 import java.util.Calendar
 
 /**
- * صفحه ساخت/ویرایش یک گروه قفل. یک گروه می‌تونه یک اپ تنها داشته باشه
- * (محدودیت تکی) یا چند اپ با هم (محدودیت گروهی) — هر دو حالت با همین صفحه پوشش داده می‌شن.
+ * Screen for creating/editing a lock group. A group can contain a single app
+ * (individual restriction) or several apps together (group restriction) —
+ * both cases are covered by this same screen.
  */
 class GroupEditActivity : AppCompatActivity() {
 
@@ -92,10 +93,10 @@ class GroupEditActivity : AppCompatActivity() {
                 ranges.sortBy { it.startMinute }
                 refreshRangesUi()
             }, startHour, startMinute, true).apply {
-                setTitle("ساعت پایان بازه")
+                setTitle(getString(R.string.title_pick_range_end))
             }.show()
         }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), true).apply {
-            setTitle("ساعت شروع بازه")
+            setTitle(getString(R.string.title_pick_range_start))
         }.show()
     }
 
@@ -104,7 +105,7 @@ class GroupEditActivity : AppCompatActivity() {
 
         if (ranges.isEmpty()) {
             val empty = TextView(this).apply {
-                text = "هنوز بازه‌ای اضافه نکردی — یعنی این گروه همیشه قفله."
+                text = getString(R.string.no_ranges_yet)
                 setTextColor(getColor(R.color.text_secondary))
                 textSize = 14f
             }
@@ -128,24 +129,25 @@ class GroupEditActivity : AppCompatActivity() {
     private fun saveGroup() {
         val selectedPackages = appAdapter.getSelectedPackages()
         if (selectedPackages.isEmpty()) {
-            Toast.makeText(this, "حداقل یک اپ باید انتخاب کنی", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_pick_at_least_one_app), Toast.LENGTH_SHORT).show()
             return
         }
 
         var name = binding.groupNameInput.text?.toString()?.trim().orEmpty()
         if (name.isEmpty()) {
-            name = if (selectedPackages.size == 1) "محدودیت تکی" else "گروه بدون‌نام"
+            name = if (selectedPackages.size == 1)
+                getString(R.string.default_name_individual) else getString(R.string.default_name_group)
         }
 
         val allGroups = PrefsHelper.getGroups(this)
 
-        // این پکیج‌ها رو از هر گروه دیگه‌ای که توش بودن حذف کن (هر اپ فقط توی یک گروه)
+        // Remove these packages from any other group they were in (each app belongs to only one group)
         allGroups.forEach { group ->
             if (group.id != editingGroupId) {
                 group.packages.removeAll(selectedPackages)
             }
         }
-        // گروه‌هایی که با حذف پکیج‌ها خالی موندن رو هم حذف کن
+        // Also remove groups that became empty after removing packages
         allGroups.removeAll { it.id != editingGroupId && it.packages.isEmpty() }
 
         val existingIndex = allGroups.indexOfFirst { it.id == editingGroupId }
@@ -167,21 +169,21 @@ class GroupEditActivity : AppCompatActivity() {
         }
 
         PrefsHelper.saveGroups(this, allGroups)
-        Toast.makeText(this, "ذخیره شد ✅", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.saved_toast), Toast.LENGTH_SHORT).show()
         finish()
     }
 
     private fun deleteGroup() {
         AlertDialog.Builder(this)
-            .setTitle("حذف این گروه؟")
-            .setMessage("اپ‌های این گروه دیگه محدودیتی نخواهند داشت.")
-            .setPositiveButton("حذف کن") { _, _ ->
+            .setTitle(R.string.delete_group_title)
+            .setMessage(R.string.delete_group_message)
+            .setPositiveButton(R.string.btn_confirm_delete) { _, _ ->
                 val allGroups = PrefsHelper.getGroups(this)
                 allGroups.removeAll { it.id == editingGroupId }
                 PrefsHelper.saveGroups(this, allGroups)
                 finish()
             }
-            .setNegativeButton("انصراف", null)
+            .setNegativeButton(R.string.btn_cancel, null)
             .show()
     }
 }

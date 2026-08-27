@@ -1,22 +1,41 @@
 package com.example.socialtimelock
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.socialtimelock.databinding.ActivityMainBinding
 import com.example.socialtimelock.databinding.ItemRuleBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 /**
- * صفحه اصلی: لیست تمام "قانون"های ساخته‌شده (هرکدوم شامل یک یا چند اپ + بازه‌های مجاز خودشون).
- * از اینجا می‌تونی قانون جدید بسازی، یا قانون‌های قبلی رو ویرایش/حذف کنی.
+ * Home screen: a list of all the "rules" created so far (each with one or
+ * more apps + its own allowed time windows). From here you can create a new
+ * rule, edit/delete existing ones, or back up / restore your rules.
  */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val exportLauncher = registerForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json")
+    ) { uri: Uri? ->
+        uri?.let { exportRulesTo(it) }
+    }
+
+    private val importLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocument()
+    ) { uri: Uri? ->
+        uri?.let { promptImportMode(it) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +51,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnEnableService.setOnClickListener {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
+        binding.btnExportRules.setOnClickListener { startExport() }
+        binding.btnImportRules.setOnClickListener {
+            importLauncher.launch(arrayOf("application/json"))
+        }
     }
 
     override fun onResume() {
@@ -39,6 +62,50 @@ class MainActivity : AppCompatActivity() {
         updateServiceStatus()
         refreshRulesList()
     }
+
+    // ---------- Backup ----------
+
+    private fun startExport() {
+        val timestamp = SimpleDateFormat("yyyy-MM-dd_HHmm", Locale.US).format(Date())
+        exportLauncher.launch("social-time-lock-backup-$timestamp.json")
+    }
+
+    private fun exportRulesTo(uri: Uri) {
+        try {
+            val json = PrefsHelper.exportGroupsAsJson(this)
+            contentResolver.openOutputStream(uri)?.use { out ->
+                out.write(json.toByteArray())
+            }
+            Toast.makeText(this, getString(R.string.export_success), Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, getString(R.string.export_failed), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun promptImportMode(uri: Uri) {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.import_confirm_title)
+            .setMessage(R.string.import_confirm_message)
+            .setPositiveButton(R.string.btn_import_merge) { _, _ -> importRulesFrom(uri, replace = false) }
+            .setNegativeButton(R.string.btn_import_replace) { _, _ -> importRulesFrom(uri, replace = true) }
+            .show()
+    }
+
+    private fun importRulesFrom(uri: Uri, replace: Boolean) {
+        try {
+            val json = contentResolver.openInputStream(uri)?.bufferedReader()?.use { it.readText() }
+                ?: throw IllegalStateException("empty file")
+            val count = PrefsHelper.importGroupsFromJson(this, json, replace)
+            Toast.makeText(
+                this, getString(R.string.import_success_format, count), Toast.LENGTH_SHORT
+            ).show()
+            refreshRulesList()
+        } catch (e: Exception) {
+            Toast.makeText(this, getString(R.string.import_failed), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // ---------- Rules list ----------
 
     private fun refreshRulesList() {
         binding.rulesContainer.removeAllViews()
@@ -64,9 +131,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            rowBinding.ruleName.text = group.name.ifEmpty { "قانون بدون‌نام" }
+            rowBinding.ruleName.text = group.name.ifEmpty { getString(R.string.default_name_group) }
             rowBinding.ruleApps.text = if (appLabels.isEmpty())
-                "بدون اپ" else appLabels.joinToString("، ")
+                getString(R.string.no_apps_label) else appLabels.joinToString(", ")
             rowBinding.ruleRanges.text = group.rangesDisplayString()
 
             rowBinding.root.setOnClickListener { openEditor(group.id) }
@@ -85,15 +152,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun confirmDelete(groupId: String) {
         AlertDialog.Builder(this)
-            .setTitle("حذف این قانون؟")
-            .setMessage("اپ‌های این قانون دیگه محدودیتی نخواهند داشت.")
-            .setPositiveButton("حذف کن") { _, _ ->
+            .setTitle(R.string.delete_group_title)
+            .setMessage(R.string.delete_group_message)
+            .setPositiveButton(R.string.btn_confirm_delete) { _, _ ->
                 val groups = PrefsHelper.getGroups(this)
                 groups.removeAll { it.id == groupId }
                 PrefsHelper.saveGroups(this, groups)
                 refreshRulesList()
             }
-            .setNegativeButton("انصراف", null)
+            .setNegativeButton(R.string.btn_cancel, null)
             .show()
     }
 

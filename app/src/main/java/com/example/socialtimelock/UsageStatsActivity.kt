@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.socialtimelock.databinding.ActivityUsageStatsBinding
 
 /**
- * صفحه آمار استفاده: نشون می‌ده هر اپ امروز یا این هفته چقدر استفاده شده.
- * اپ‌هایی که توی یک قانون فعال هستن، یه نشان کوچیک قفل کنارشون دارن.
+ * Usage stats screen: shows how much each app has been used today or this week.
+ * Apps that are part of an active rule get a small lock badge next to them.
  */
 class UsageStatsActivity : AppCompatActivity() {
 
@@ -67,7 +67,7 @@ class UsageStatsActivity : AppCompatActivity() {
             .mapNotNull { (pkg, millis) ->
                 try {
                     val appInfo: ApplicationInfo = pm.getApplicationInfo(pkg, 0)
-                    // فقط اپ‌هایی که آیکون قابل باز شدن دارن (نه سرویس‌های سیستمی مخفی)
+                    // Only apps with a launchable icon (not hidden system services)
                     if (pm.getLaunchIntentForPackage(pkg) == null) return@mapNotNull null
                     AppUsageInfo(
                         packageName = pkg,
@@ -81,7 +81,7 @@ class UsageStatsActivity : AppCompatActivity() {
                 }
             }
             .sortedByDescending { it.usageMillis }
-            .take(30) // فقط ۳۰ تای پراستفاده‌ترین، تا لیست خیلی طولانی نشه
+            .take(30) // Only the top 30 most-used apps, to keep the list from getting too long
 
         binding.emptyUsageText.visibility =
             if (items.isEmpty()) android.view.View.VISIBLE else android.view.View.GONE

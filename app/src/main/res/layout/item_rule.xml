@@ -29,7 +29,7 @@
                 android:textColor="@color/text_main"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                tools:text="محدودیت شبکه اجتماعی"
+                tools:text="Social Media Limit"
                 xmlns:tools="http://schemas.android.com/tools" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="13sp"
                 android:layout_marginTop="2dp"
-                tools:text="اینستاگرام، تلگرام"
+                tools:text="Instagram, Telegram"
                 xmlns:tools="http://schemas.android.com/tools" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:textColor="@color/primary"
                 android:textSize="13sp"
                 android:layout_marginTop="4dp"
-                tools:text="۰۸:۰۰ تا ۱۰:۰۰ ، ۲۰:۰۰ تا ۲۲:۰۰"
+                tools:text="08:00 to 10:00, 20:00 to 22:00"
                 xmlns:tools="http://schemas.android.com/tools" />
 
         </LinearLayout>
@@ -58,7 +58,7 @@
             android:id="@+id/btnEditRule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ویرایش"
+            android:text="@string/btn_edit"
             android:textColor="@color/primary"
             android:textSize="13sp"
             android:padding="8dp"
@@ -68,7 +68,7 @@
             android:id="@+id/btnDeleteRule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="حذف"
+            android:text="@string/btn_delete"
             android:textColor="#E0455C"
             android:textSize="13sp"
             android:padding="8dp"

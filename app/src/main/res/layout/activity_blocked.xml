@@ -14,7 +14,18 @@
         android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/blockedAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"
+        tools:text="Instagram"
+        xmlns:tools="http://schemas.android.com/tools" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,6 +40,15 @@
         android:id="@+id/btnBackHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_back_home" />
+        android:text="@string/btn_back_home"
+        android:layout_marginBottom="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRequestDelay"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_request_delay"
+        android:textColor="@color/text_secondary" />
 
 </LinearLayout>

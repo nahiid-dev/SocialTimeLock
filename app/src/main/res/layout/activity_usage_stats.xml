@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/toggle_today"
-                        app:checkable="true" />
+                        android:checkable="true" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/toggleWeek"
@@ -88,7 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/toggle_week"
-                        app:checkable="true" />
+                        android:checkable="true" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 

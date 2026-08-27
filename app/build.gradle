@@ -3,14 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-// ✅ مخازن باید اینجا باشند
-repositories {
-    google()
-    mavenCentral()
-    // در صورت نیاز به آینه، این خط را فعال کنید
-    maven { url 'https://mirrors.cloud.tencent.com/nexus/repository/maven-public/' }
-}
-
 android {
     namespace 'com.example.socialtimelock'
     compileSdk 34

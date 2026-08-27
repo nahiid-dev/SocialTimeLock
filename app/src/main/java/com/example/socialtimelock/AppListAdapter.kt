@@ -31,7 +31,9 @@ class AppListAdapter(
 
         if (app.alreadyInGroupName != null) {
             holder.note.visibility = View.VISIBLE
-            holder.note.text = "الان توی «${app.alreadyInGroupName}» — با انتخابش منتقل می‌شه اینجا"
+            holder.note.text = holder.itemView.context.getString(
+                R.string.already_in_group_format, app.alreadyInGroupName
+            )
         } else {
             holder.note.visibility = View.GONE
         }
