@@ -72,4 +72,14 @@
     <string name="btn_confirm_delete">Delete</string>
     <string name="btn_cancel">Cancel</string>
     <string name="no_apps_label">No apps</string>
+
+    <string name="tab_rules">Rules</string>
+    <string name="tab_settings">Settings</string>
+    <string name="accessibility_enabled_row">✅ Accessibility service is active</string>
+    <string name="btn_change_short">Change</string>
+
+    <string name="title_pick_time_range">Add Time Window</string>
+    <string name="label_start_time">Start Time</string>
+    <string name="label_end_time">End Time</string>
+    <string name="btn_add_short">Add</string>
 </resources>

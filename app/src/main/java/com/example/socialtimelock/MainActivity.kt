@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -17,9 +18,9 @@ import java.util.Date
 import java.util.Locale
 
 /**
- * Home screen: a list of all the "rules" created so far (each with one or
- * more apps + its own allowed time windows). From here you can create a new
- * rule, edit/delete existing ones, or back up / restore your rules.
+ * Home screen with two tabs:
+ * - Rules: the list of lock rules, and creating new ones.
+ * - Settings: Accessibility service status, usage stats shortcut, and backup.
  */
 class MainActivity : AppCompatActivity() {
 
@@ -42,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupBottomNav()
+
         binding.btnNewRule.setOnClickListener {
             startActivity(Intent(this, GroupEditActivity::class.java))
         }
@@ -49,6 +52,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, UsageStatsActivity::class.java))
         }
         binding.btnEnableService.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        }
+        binding.btnChangeAccessibility.setOnClickListener {
             startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
         }
         binding.btnExportRules.setOnClickListener { startExport() }
@@ -61,6 +67,26 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         updateServiceStatus()
         refreshRulesList()
+    }
+
+    // ---------- Tabs ----------
+
+    private fun setupBottomNav() {
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_rules -> {
+                    binding.rulesPage.visibility = View.VISIBLE
+                    binding.settingsPage.visibility = View.GONE
+                    true
+                }
+                R.id.nav_settings -> {
+                    binding.rulesPage.visibility = View.GONE
+                    binding.settingsPage.visibility = View.VISIBLE
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     // ---------- Backup ----------
@@ -112,10 +138,10 @@ class MainActivity : AppCompatActivity() {
         val groups = PrefsHelper.getGroups(this)
 
         if (groups.isEmpty()) {
-            binding.emptyRulesText.visibility = android.view.View.VISIBLE
+            binding.emptyRulesText.visibility = View.VISIBLE
             return
         }
-        binding.emptyRulesText.visibility = android.view.View.GONE
+        binding.emptyRulesText.visibility = View.GONE
 
         val pm = packageManager
         for (group in groups.sortedBy { it.name }) {
@@ -164,10 +190,12 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    // ---------- Settings tab ----------
+
     private fun updateServiceStatus() {
         val enabled = isAccessibilityServiceEnabled()
-        binding.statusText.text = if (enabled)
-            getString(R.string.status_service_on) else getString(R.string.status_service_off)
+        binding.btnEnableService.visibility = if (enabled) View.GONE else View.VISIBLE
+        binding.accessibilityEnabledRow.visibility = if (enabled) View.VISIBLE else View.GONE
     }
 
     private fun isAccessibilityServiceEnabled(): Boolean {

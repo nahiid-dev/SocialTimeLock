@@ -1,6 +1,5 @@
 package com.example.socialtimelock
 
-import android.app.TimePickerDialog
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.socialtimelock.databinding.ActivityGroupEditBinding
+import com.example.socialtimelock.databinding.DialogTimeRangePickerBinding
 import com.example.socialtimelock.databinding.ItemTimeRangeBinding
 import java.util.Calendar
 
@@ -83,21 +83,50 @@ class GroupEditActivity : AppCompatActivity() {
         binding.appRecyclerView.adapter = appAdapter
     }
 
+    /**
+     * A single dialog with 4 wheel-style NumberPickers (start hour/minute,
+     * end hour/minute). Each picker can be scrolled OR tapped to type the
+     * number directly — easier than the old clock-face time pickers.
+     */
     private fun showAddRangeDialog() {
+        val dialogBinding = DialogTimeRangePickerBinding.inflate(LayoutInflater.from(this))
         val now = Calendar.getInstance()
-        TimePickerDialog(this, { _, startHour, startMinute ->
-            TimePickerDialog(this, { _, endHour, endMinute ->
-                val start = startHour * 60 + startMinute
-                val end = endHour * 60 + endMinute
+        val nowHour = now.get(Calendar.HOUR_OF_DAY)
+        val nowMinute = now.get(Calendar.MINUTE)
+
+        configureHourPicker(dialogBinding.startHourPicker, nowHour)
+        configureMinutePicker(dialogBinding.startMinutePicker, nowMinute)
+        configureHourPicker(dialogBinding.endHourPicker, nowHour)
+        configureMinutePicker(dialogBinding.endMinutePicker, nowMinute)
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.title_pick_time_range)
+            .setView(dialogBinding.root)
+            .setPositiveButton(R.string.btn_add_short) { _, _ ->
+                val start = dialogBinding.startHourPicker.value * 60 + dialogBinding.startMinutePicker.value
+                val end = dialogBinding.endHourPicker.value * 60 + dialogBinding.endMinutePicker.value
                 ranges.add(TimeRange(start, end))
                 ranges.sortBy { it.startMinute }
                 refreshRangesUi()
-            }, startHour, startMinute, true).apply {
-                setTitle(getString(R.string.title_pick_range_end))
-            }.show()
-        }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), true).apply {
-            setTitle(getString(R.string.title_pick_range_start))
-        }.show()
+            }
+            .setNegativeButton(R.string.btn_cancel, null)
+            .show()
+    }
+
+    private fun configureHourPicker(picker: android.widget.NumberPicker, initialValue: Int) {
+        picker.minValue = 0
+        picker.maxValue = 23
+        picker.value = initialValue
+        picker.setFormatter { String.format("%02d", it) }
+        picker.wrapSelectorWheel = true
+    }
+
+    private fun configureMinutePicker(picker: android.widget.NumberPicker, initialValue: Int) {
+        picker.minValue = 0
+        picker.maxValue = 59
+        picker.value = initialValue
+        picker.setFormatter { String.format("%02d", it) }
+        picker.wrapSelectorWheel = true
     }
 
     private fun refreshRangesUi() {
