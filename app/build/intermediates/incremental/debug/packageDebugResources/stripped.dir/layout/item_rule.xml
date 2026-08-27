@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ruleRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="1dp"
+    app:cardBackgroundColor="@color/card">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ruleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_main"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="محدودیت شبکه اجتماعی"
+                xmlns:tools="http://schemas.android.com/tools" />
+
+            <TextView
+                android:id="@+id/ruleApps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginTop="2dp"
+                tools:text="اینستاگرام، تلگرام"
+                xmlns:tools="http://schemas.android.com/tools" />
+
+            <TextView
+                android:id="@+id/ruleRanges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp"
+                tools:text="۰۸:۰۰ تا ۱۰:۰۰ ، ۲۰:۰۰ تا ۲۲:۰۰"
+                xmlns:tools="http://schemas.android.com/tools" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnEditRule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ویرایش"
+            android:textColor="@color/primary"
+            android:textSize="13sp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/btnDeleteRule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="حذف"
+            android:textColor="#E0455C"
+            android:textSize="13sp"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackground" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

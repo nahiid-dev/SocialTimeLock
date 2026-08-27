@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/rangeText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/text_main"
+        android:textSize="16sp"
+        tools:text="۰۸:۰۰ تا ۱۰:۰۰"
+        xmlns:tools="http://schemas.android.com/tools" />
+
+    <TextView
+        android:id="@+id/btnRemoveRange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="حذف ✕"
+        android:textColor="#E0455C"
+        android:textSize="14sp"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackground" />
+
+</LinearLayout>

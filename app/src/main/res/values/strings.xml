@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">قفل شبکه اجتماعی</string>
+    <string name="accessibility_service_description">این سرویس اپ‌های انتخاب‌شده را در ساعت‌های غیرمجاز مسدود می‌کند.</string>
+
+    <string name="title_my_rules">قانون‌های من</string>
+    <string name="my_rules_hint">هر قانون یک یا چند اپ داره که با هم از یک بازه زمانی پیروی می‌کنن.</string>
+    <string name="no_rules_yet">هنوز قانونی نساختی. با دکمه پایین شروع کن.</string>
+    <string name="btn_new_rule">+ ایجاد قانون جدید</string>
+
+    <string name="title_new_or_edit_rule">قانون جدید</string>
+    <string name="group_name_hint">اسم این قانون (اختیاری، مثلاً «شبکه اجتماعی»)</string>
+    <string name="hint_rule_name">اسم این قانون (اختیاری، مثلاً «شبکه اجتماعی»)</string>
+
+    <string name="title_choose_apps">اپ‌هایی که می‌خواهی قفل کنی</string>
+    <string name="choose_apps_hint">می‌تونی چندتا با هم تیک بزنی (محدودیت گروهی) یا فقط یکی (محدودیت تکی).</string>
+
+    <string name="title_time_range">بازه‌های زمانی مجاز برای استفاده</string>
+    <string name="time_range_hint">می‌تونی چند بازه اضافه کنی، مثلاً صبح، ظهر و شب.</string>
+    <string name="btn_add_range">+ افزودن بازه جدید</string>
+
+    <string name="btn_save">ذخیره تنظیمات</string>
+    <string name="btn_save_rule">ذخیره قانون</string>
+    <string name="btn_delete_rule">حذف این قانون</string>
+    <string name="btn_delete_group">حذف این قانون</string>
+
+    <string name="btn_enable_service">فعال‌سازی سرویس دسترسی (Accessibility)</string>
+    <string name="btn_usage_stats">📊 آمار استفاده</string>
+
+    <string name="title_usage_stats">آمار استفاده</string>
+    <string name="usage_permission_explanation">برای دیدن آمار، باید مجوز «دسترسی به آمار استفاده» رو در تنظیمات اندروید بدی. این مجوز جدا از سرویس دسترسیه که قبلاً فعال کردی.</string>
+    <string name="btn_grant_usage_access">فعال‌سازی دسترسی به آمار استفاده</string>
+    <string name="toggle_today">امروز</string>
+    <string name="toggle_week">این هفته</string>
+    <string name="no_usage_data">هنوز داده‌ای برای نمایش نیست.</string>
+
+    <string name="status_service_on">سرویس فعال است ✅</string>
+    <string name="status_service_off">سرویس غیرفعال است ⚠️ برای کارکرد اپ باید فعالش کنی</string>
+    <string name="blocked_title">این اپ الان قفله 🔒</string>
+    <string name="blocked_subtitle">فقط در بازه زمانی مجازت می‌تونی ازش استفاده کنی.</string>
+    <string name="btn_back_home">برگشت به صفحه اصلی</string>
+</resources>

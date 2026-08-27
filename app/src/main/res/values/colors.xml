@@ -1,0 +1,10 @@
+<resources>
+    <color name="primary">#5B4EFF</color>
+    <color name="primary_dark">#3E32D6</color>
+    <color name="background">#F6F5FB</color>
+    <color name="card">#FFFFFF</color>
+    <color name="text_main">#1E1B2E</color>
+    <color name="text_secondary">#6E6A80</color>
+    <color name="blocked_bg">#1E1B2E</color>
+    <color name="white">#FFFFFF</color>
+</resources>
